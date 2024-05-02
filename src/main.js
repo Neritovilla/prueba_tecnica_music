@@ -3,6 +3,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';//import boostrap for styles css
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import router from './router'; 
 
 /* declare value false for use autenticate in simple guard  */

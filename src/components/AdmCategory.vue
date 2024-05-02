@@ -49,7 +49,7 @@
                 <tr v-for="category in categories" :key="category.id_category">
                   <td>{{ category.id_category}}</td>
                   <td>{{ category.name }}</td>
-                  <td>{{category.status }}</td>
+                  <td>{{category.status === 1? 'Activo' :'Inactivo' }}</td>
                   <td><button class="btn" @click="editCategory()"><i class="fa fa-solid fa-pencil"></i></button></td>
                   <td><button class="btn" @click="deleteCategory()"><i class="fa fa-solid fa-trash"></i></button></td>
                   <td v-if="category.status" @click="CancelCategory()"><button class="btn"><i class="fa fa-solid fa-check"></i></button></td>
