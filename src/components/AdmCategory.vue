@@ -42,7 +42,6 @@
                   <th>Estado</th>
                   <th></th>
                   <th></th>
-                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -50,22 +49,18 @@
                   <td>{{ category.id_category}}</td>
                   <td>{{ category.name }}</td>
                   <td>{{category.status === 1? 'Activo' :'Inactivo' }}</td>
-                  <td><button class="btn" @click="editCategory()"><i class="fa fa-solid fa-pencil"></i></button></td>
-                  <td><button class="btn" @click="deleteCategory()"><i class="fa fa-solid fa-trash"></i></button></td>
-                  <td v-if="category.status" @click="CancelCategory()"><button class="btn"><i class="fa fa-solid fa-check"></i></button></td>
-                  <td v-if="!category.status" @click="ActiveCategory()"><button class="btn"><i class="fa fa-times"></i></button></td>                  
+                  <td><button class="btn" @click="accionCategory(category.id_category, 'e')"><i class="fa fa-solid fa-pencil"></i></button></td>
+                  <td v-if="category.status" @click="accionCategory(category.id_category, 'd')"><button class="btn"><i class="fa fa-solid fa-check"></i></button></td>
+                  <td v-if="!category.status" @click="accionCategory(category.id_category, 'a')"><button class="btn"><i class="fa fa-times"></i></button></td>                  
                 </tr>
               </tbody>
             </table>
-          </div>
-
-
-        
+          </div>          
       </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
 
     export default {
         data() {
@@ -96,7 +91,11 @@ import axios from 'axios'
               document.isAuthenticated = false;
               localStorage.clear();
               this.$router.push({ name: 'Login' });
-            }
+            },
+            accionCategory(id_category, accion){    
+                //console.log(id_category + 'con accion: ' + accion);
+                this.$router.push({ name: 'CategoryAction', params: { id_category, accion } });
+            },
         }
     };
 </script>
@@ -224,4 +223,39 @@ import axios from 'axios'
         background-color: #5a6268;
     }
     
+/* Estilos del Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+}
+
 </style>

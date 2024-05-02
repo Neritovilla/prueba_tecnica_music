@@ -2,8 +2,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';//import boostrap for styles css
-import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import router from './router'; 
 
 /* declare value false for use autenticate in simple guard  */
@@ -23,6 +22,9 @@ router.beforeEach((to, from) => {
         return '/login';
     }
     if(to.path == '/profile' && document.isAuthenticated == false){
+        return '/login';
+    }
+    if(to.path == '/categoryAction' && document.isAuthenticated == false){
         return '/login';
     }
 })

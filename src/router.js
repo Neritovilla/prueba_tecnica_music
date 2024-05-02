@@ -7,7 +7,7 @@ import SongCategory from './components/SongCategory.vue';
 import AdmSong from './components/AdmSong.vue';
 import AdmCategory from './components/AdmCategory.vue';
 import Profile from './components/Profile.vue';
-
+import CategoryAction from './components/Accions/CategoryAction.vue';
 /* create routes for pages */
 const routes = [
   {
@@ -48,7 +48,12 @@ const routes = [
     path: '/profile',
     name: 'Profile',
     component: Profile
-  }
+  },
+  {
+    path: '/categoryAction/:id_category/:accion',
+    name: 'CategoryAction',
+    component: CategoryAction
+  },
 ];
 
 
