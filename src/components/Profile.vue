@@ -13,9 +13,9 @@
               <h3>Sistema web Music</h3>
             </div>
             <div class="col col-profile">
-                <button class="btn btn-menu" @click="goProfile">Perfil</button> 
-                <button class="btn btn-menu" @click="closeSession">Salir</button>
-              </div>
+              <button class="btn btn-menu" @click="goProfile">Perfil</button> 
+              <button class="btn btn-menu" @click="closeSession">Salir</button>
+            </div>
           </div>
         </header>    
         <div class="offcanvas offcanvas-start lateral-menu" :class="{ 'show': showMenu }" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
@@ -33,66 +33,39 @@
         </div>
     
         <div class="element-category">
-            <label class="title-label">Administración de canciones</label>
-            <table class="table table-song dark-table">
-              <thead>
-                <tr>        
-                  <th>ID</th>      
-                  <th>Nombre</th>
-                  <th>Cantante</th>
-                  <th>Album</th>
-                  <th>Caategoría</th>
-                  <th>Año Lanzamiento</th>
-                  <th>Duración</th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="song in songs" :key="song.id_song">
-                  <td>{{ song.id_song}}</td>
-                  <td>{{ song.title }}</td>
-                  <td>{{ song.composer }}</td>
-                  <td>{{ song.album }}</td>
-                  <td>{{ song.id_category }}</td>
-                  <td>{{ song.release_year }}</td>
-                  <td>{{ song.duration }}</td>
-                  <td><button class="btn"><i class="fa fa-solid fa-pencil"></i></button></td>
-                  <td><button class="btn"><i class="fa fa-solid fa-trash"></i></button></td>
-                </tr>
-              </tbody>
-            </table>
+            <label class="title-label">Perfil de Usuario</label>
+            <div class="profile">
+              <div class="profile-header">
+                <h1>Nombre de Usuario: {{ name }}</h1>
+                <p>Correo electronico: {{ email }}</p>
+                <img src="../assets/img/avatar.png" alt="Avatar" class="avatar">
+              </div>
+            </div>
           </div>
-
-
-        
       </div>
 </template>
 
 <script>
-import axios from 'axios'
 
     export default {
         data() {
             return {
                 showMenu: false,
-                songs: [],
+                email: '',
+                name: '',
+                id: '',
+                img:''
             };
         },
         created() {
-            this.showSongs();
+            this.email = localStorage.getItem('email');
+            this.name = localStorage.getItem('name');
+            this.id = localStorage.getItem('id');
+            this.img = '@/assets/img/avatar.png'
         },
         methods: {
             toggleMenu() {
                 this.showMenu = !this.showMenu;
-            },
-            async showSongs() {
-                try {
-                        const response = await axios.get('http://127.0.0.1:8000/api/songs');
-                        this.songs = response.data;              
-                    } catch (error) {
-                        console.error('Error al obtener las canciones:', error);
-                    }
             },
             goProfile(){
               this.$router.push({ name: 'Profile' });
@@ -109,8 +82,8 @@ import axios from 'axios'
 <style scoped>
 
 .col-profile{
-    text-align: right;
-  }
+  text-align: right;
+}
 
 .hearder_col{
     background-color: #000000;
@@ -229,4 +202,19 @@ import axios from 'axios'
         background-color: #5a6268;
     }
     
+    .profile {
+      margin: 20px;
+    }
+    
+    .profile-header {
+      text-align: center;
+    }
+    
+    .avatar {
+      width: 25%;
+      height: 50%;
+      border-radius: 50%;
+      margin-top: 20px;
+    }
+
 </style>

@@ -11,6 +11,10 @@
           <div class="col">
             <h3>Sistema web Music</h3>
           </div>
+          <div class="col col-profile">
+            <button class="btn btn-menu" @click="goProfile">Perfil</button> 
+            <button class="btn btn-menu" @click="closeSession">Salir</button>
+          </div>
         </div>
       </header>
   
@@ -21,10 +25,10 @@
         </div>
         <div class="offcanvas-body">
           <ul class="mynav nav nav-pills flex-column mb-auto">
-            <li class="nav-item mb-1"><a href="#"><i class="fa fa-indent font-icon-list"></i> Dashboard</a></li>
-            <li class="nav-item mb-1"><a href="#"><i class="fa fa-music font-icon-list" aria-hidden="true"></i> Canciones</a></li>
-            <li class="nav-item mb-1"><a href="#"><i class="fa fa-folder-open font-icon-list" aria-hidden="true"></i> Categorías</a></li>
-          </ul>
+            <li class="nav-item mb-1"><router-link to="/Index"><i class="fa fa-indent font-icon-list"></i> Dashboard</router-link></li>
+            <li class="nav-item mb-1"><router-link to="/AdmSong"><i class="fa fa-music font-icon-list" aria-hidden="true"></i> Canciones</router-link></li>
+            <li class="nav-item mb-1"><router-link to="/AdmCategory"><i class="fa fa-folder-open font-icon-list" aria-hidden="true"></i> Categorías</router-link></li>
+        </ul>
         </div>
       </div>
   
@@ -61,6 +65,7 @@
               <th>Caategoría</th>
               <th>Año Lanzamiento</th>
               <th>Duración</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -71,6 +76,7 @@
               <td>{{ song.id_category }}</td>
               <td>{{ song.release_year }}</td>
               <td>{{ song.duration }}</td>
+              <td><button class="btn" @click="playAudio(song.audio_file)"><i class="fa fa-solid fa-play"></i></button></td>
             </tr>
           </tbody>
         </table>
@@ -160,18 +166,34 @@
 
         showSongsModal(id_category, name) {            
             this.$router.push({ name: 'SongCategory', params: { id_category, name } });
+        },
+        playAudio(audioFile) {
+          alert('reproduciendo: '  + audioFile);
+          /*
+          audioFile = '';
+          const audio = new Audio();
+          audio.src = audioFile;    
+          audio.play();
+          */
+        },        
+        goProfile(){
+          this.$router.push({ name: 'Profile' });
+        },
+        closeSession(){
+          document.isAuthenticated = false;
+          this.$router.push({ name: 'Login' });
         }
 
-
-
-
-
-        
     }
   };
   </script>
   
   <style scoped>
+
+  .col-profile{
+    text-align: right;
+  }
+
   #staticBackdropLabel {
     color: #fff;
   }

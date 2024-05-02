@@ -55,38 +55,15 @@ import axios from 'axios';
 
         let email = this.User.email;
         let password = this.User.password;
-/*
-        axios.post('http://127.0.0.1:8000/api/login', 
-        {
-          "email":email,
-          "password":password,
-        }
-      )
-            .then(
-                ({data})=>{                    
-                    try{
-
-                        console.log('status' + data.status);
-
-                        if(data.status === true){
-                          alert("Ingreso Exitoso");
-                          this.$router.push({name: 'Index'})
-                        }else{
-                          alert('Error al Ingresar');
-                        }
-                    }catch(err){
-                        alert('Error, porfavor intentelo nuevamente');
-                    }
-                }
-            )
-*/
         axios.post('http://127.0.0.1:8000/api/login', {
               "email": email,
               "password": password,
             })
             .then(response => {
               if (response.data.status === true) {
-                alert("Inicio de sesión exitoso");
+                alert("Inicio de sesión exitoso");                
+                /*save data name in local storage*/
+                this.saveLocalStorage(email,password);
                 this.$router.push({ name: 'Index' });
               } else {
                 alert("Inicio de sesión fallido");
@@ -97,6 +74,21 @@ import axios from 'axios';
               alert("Credenciales incorrectas para iniciar sesion");
             });
 
+      },
+      async saveLocalStorage(email,password){
+        document.isAuthenticated = true;
+        try {
+                    const response = await axios.post('http://127.0.0.1:8000/api/user', {
+                      "email" : email,
+                       "password" : password
+                    });
+                    this.user = response.data;  
+                    localStorage.id = this.user.user.id; 
+                    localStorage.name = this.user.user.name;
+                    localStorage.email = this.user.user.email;                    
+                } catch (error) {
+                    console.error('Error al obtener las canciones por categoría:', error);
+                }
       }
     }
   };

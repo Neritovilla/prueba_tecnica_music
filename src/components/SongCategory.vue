@@ -12,6 +12,10 @@
             <div class="col">
               <h3>Sistema web Music</h3>
             </div>
+            <div class="col col-profile">
+              <button class="btn btn-menu" @click="goProfile">Perfil</button> 
+              <button class="btn btn-menu" @click="closeSession">Salir</button>
+            </div>
           </div>
         </header>    
         <div class="offcanvas offcanvas-start lateral-menu" :class="{ 'show': showMenu }" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
@@ -21,9 +25,9 @@
           </div>
           <div class="offcanvas-body">
             <ul class="mynav nav nav-pills flex-column mb-auto">
-              <li class="nav-item mb-1"><a href="#"><i class="fa fa-indent font-icon-list"></i> Dashboard</a></li>
-              <li class="nav-item mb-1"><a href="#"><i class="fa fa-music font-icon-list" aria-hidden="true"></i> Canciones</a></li>
-              <li class="nav-item mb-1"><a href="#"><i class="fa fa-folder-open font-icon-list" aria-hidden="true"></i> Categorías</a></li>
+              <li class="nav-item mb-1"><router-link to="/Index"><i class="fa fa-indent font-icon-list"></i> Dashboard</router-link></li>
+              <li class="nav-item mb-1"><router-link to="/AdmSong"><i class="fa fa-music font-icon-list" aria-hidden="true"></i> Canciones</router-link></li>
+              <li class="nav-item mb-1"><router-link to="/AdmCategory"><i class="fa fa-folder-open font-icon-list" aria-hidden="true"></i> Categorías</router-link></li>
             </ul>
           </div>
         </div>
@@ -90,11 +94,23 @@ import axios from 'axios'
                     console.error('Error al obtener las canciones por categoría:', error);
                 }
             },
+            goProfile(){
+              this.$router.push({ name: 'Profile' });
+            },
+            closeSession(){
+              document.isAuthenticated = false;
+              localStorage.clear();
+              this.$router.push({ name: 'Login' });
+            }
         }
     };
 </script>
 
 <style scoped>
+
+.col-profile{
+  text-align: right;
+}
 
 .hearder_col{
     background-color: #000000;
