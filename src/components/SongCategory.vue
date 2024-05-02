@@ -32,6 +32,7 @@
           </div>
         </div>
     
+        <!--List of song for category selected-->
         <div class="element-category">
             <label class="title-label">Listado de Canciones de categoria <b>"{{name}}"</b></label>
             <table class="table table-song dark-table">
@@ -46,6 +47,7 @@
                 </tr>
               </thead>
               <tbody>
+                <!--loop a array songs for view data-->
                 <tr v-for="song in songs" :key="song.id_song">
                   <td>{{ song.title }}</td>
                   <td>{{ song.composer }}</td>
@@ -76,11 +78,14 @@ import axios from 'axios'
             };
         },
         created() {
+            /*obtain params of route*/
             this.id_category = this.$route.params.id_category;
             this.name = this.$route.params.name;
+            /*call songsByCategory for obtain list of songs whit category especific*/
             this.songsByCategory(this.id_category);
         },
         methods: {
+          /*control view or hidde lateral menu*/
             toggleMenu() {
                 this.showMenu = !this.showMenu;
             },
@@ -94,9 +99,11 @@ import axios from 'axios'
                     console.error('Error al obtener las canciones por categoría:', error);
                 }
             },
+            /*navigate page Profile*/
             goProfile(){
               this.$router.push({ name: 'Profile' });
             },
+            /*close authentication and clear localstorage*/
             closeSession(){
               document.isAuthenticated = false;
               localStorage.clear();

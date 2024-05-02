@@ -1,6 +1,7 @@
 <template>
 
     <div class="container-fluid">
+      <!--header with lateral menu-->
         <header class="row align-items-center hearder_col">
           <div class="row">
             <div class="col">

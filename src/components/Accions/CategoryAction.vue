@@ -1,6 +1,6 @@
 <template>
     <div class="container container-forms">
-
+      <!--form edit category-->
         <div v-if="edit">
             <h2>Detalles de la Categoría</h2>
             <form>
@@ -19,7 +19,7 @@
             </form>
           </div>
   
-      <!-- Otros formularios para activar y desactivar -->
+      <!-- forms for active or desactive status -->
       <div v-if="active">
         <h2>Confirmación de Activación</h2>
         <p>¿Está seguro que desea activar la categoría {{ category.name }}?</p>
@@ -53,10 +53,10 @@
       };
     },
     created() {
-
+      /*obtain params of route */
         this.id_category = this.$route.params.id_category;
         this.accion = this.$route.params.accion;
-
+      /*generate switch to handle different conditions edit e, desactivate d, activate a */
         switch (this.accion){
             case  'e':{                             
                 this.getCategoryDetails(this.id_category);    
@@ -73,7 +73,8 @@
             }
         }
     },
-    methods: {              
+    methods: {           
+      /*make a request for obtain data of category according to the id*/   
         async getCategoryDetails(id_category) {
             try {
                 const response = await axios.post('http://127.0.0.1:8000/api/getCategoryId', {
@@ -87,9 +88,8 @@
                 console.error('Error al obtener las categorías:', error);
             }
         },
-     
+      /*send a params for update category name*/
       updateCategory(name, id_category) {
-
         axios.put('http://127.0.0.1:8000/api/updateCategory',{
             "id_category": id_category,
             "name" : name
@@ -102,6 +102,7 @@
                 console.error(error.response.data.error); 
             });
       }, 
+      /*send a params for update category status*/
       StatusCategory(id_category, status){
         axios.put('http://127.0.0.1:8000/api/updateCategoryStatus',{
             "id_category": id_category,
@@ -115,7 +116,7 @@
                 console.error(error.response.data.error); 
             });
       },
-
+      /*button for cancel any request and navigate to page AdmCategory*/
       cancelAction() {
         this.$router.push({ name: 'AdmCategory'});
       }

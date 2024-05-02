@@ -1,6 +1,7 @@
 <template>
 
     <div class="container-fluid">
+        <!--header with lateral menu-->
         <header class="row align-items-center hearder_col">
           <div class="row">
             <div class="col">
@@ -31,7 +32,7 @@
             </ul>
           </div>
         </div>
-    
+        <!--table with songs-->
         <div class="element-category">
             <label class="title-label">Administración de canciones</label>
             <table class="table table-song dark-table">
@@ -62,10 +63,7 @@
                 </tr>
               </tbody>
             </table>
-          </div>
-
-
-        
+          </div>        
       </div>
 </template>
 
@@ -83,9 +81,11 @@ import axios from 'axios'
             this.showSongs();
         },
         methods: {
+          /*open-close lateral menu*/
             toggleMenu() {
                 this.showMenu = !this.showMenu;
             },
+          /*make a request for obtain list of songs with status active*/
             async showSongs() {
                 try {
                         const response = await axios.get('http://127.0.0.1:8000/api/songs');
@@ -94,9 +94,11 @@ import axios from 'axios'
                         console.error('Error al obtener las canciones:', error);
                     }
             },
+            /*navigate page Profile*/
             goProfile(){
               this.$router.push({ name: 'Profile' });
             },
+            /*close authentication and clear localstorage*/
             closeSession(){
               document.isAuthenticated = false;
               localStorage.clear();
